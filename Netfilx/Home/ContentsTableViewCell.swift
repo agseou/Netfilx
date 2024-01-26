@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ContentsTableViewCell: UITableViewCell {
     
@@ -14,10 +15,10 @@ class ContentsTableViewCell: UITableViewCell {
     func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let width = UIScreen.main.bounds.width / 3.5
-        let height = UIScreen.main.bounds.height / 3
+        let height = contentView.bounds.height
         layout.itemSize = CGSize(width: width, height: height)
         layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 10
+        layout.minimumInteritemSpacing = 5
         layout.scrollDirection = .horizontal
         return layout
     }
@@ -43,13 +44,12 @@ class ContentsTableViewCell: UITableViewCell {
     func configureView() {
         contentsCollectionView.register(ContentsCollectionViewCell.self, forCellWithReuseIdentifier: "ContentsCollectionViewCell")
         contentsCollectionView.collectionViewLayout = layout()
-        contentsCollectionView.frame = .zero
-        
+        contentsCollectionView.showsHorizontalScrollIndicator = false
     }
     
     func setupContsraints() {
         contentsCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(contentView)
         }
     }
     

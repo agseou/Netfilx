@@ -28,8 +28,9 @@ class HomeViewController: UIViewController {
     func configureView() {
         homeTableView.delegate = self
         homeTableView.dataSource = self
-        homeTableView.rowHeight = UITableView.automaticDimension
+        homeTableView.rowHeight = UIScreen.main.bounds.height / 3
         homeTableView.register(ContentsTableViewCell.self, forCellReuseIdentifier: "ContentsTableViewCell")
+        homeTableView.register(MainContentTableViewCell.self, forCellReuseIdentifier: "MainContentTableViewCell")
     }
     
     func setupContsraints() {
@@ -50,18 +51,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContentsTableViewCell", for: indexPath) as! ContentsTableViewCell
-        
-        return cell
+//        if indexPath.section == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MainContentTableViewCell", for: indexPath) as! MainContentTableViewCell
+//            
+//            return cell
+//        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContentsTableViewCell", for: indexPath) as! ContentsTableViewCell
+            
+            return cell
+//        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "tableCell"
+        if section == 0 {
+            return nil
+        } else {
+            return "tableCell"
+        }
     }
     
 }
-
-//
-//#Preview {
-//    HomeViewController()
-//}
