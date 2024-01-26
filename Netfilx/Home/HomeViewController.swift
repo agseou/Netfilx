@@ -10,35 +10,58 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
-    let posterImage = UIImageView()
-    let navigationBar = UINavigationBar()
+    let homeTableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .clear
         
         configureHierarchy()
         configureView()
         setupContsraints()
     }
+    
     func configureHierarchy() {
-        view.addSubview(navigationBar)
-        view.addSubview(posterImage)
+        view.addSubview(homeTableView)
     }
     
     func configureView() {
-        posterImage.image = UIImage(resource: .서울의봄)
+        homeTableView.delegate = self
+        homeTableView.dataSource = self
+        homeTableView.rowHeight = UITableView.automaticDimension
+        homeTableView.register(ContentsTableViewCell.self, forCellReuseIdentifier: "ContentsTableViewCell")
     }
     
     func setupContsraints() {
-        
-        posterImage.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.size.equalTo(200)
+        homeTableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }
 
-
-#Preview {
-    HomeViewController()
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContentsTableViewCell", for: indexPath) as! ContentsTableViewCell
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "tableCell"
+    }
+    
 }
+
+//
+//#Preview {
+//    HomeViewController()
+//}

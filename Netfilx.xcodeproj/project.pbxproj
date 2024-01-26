@@ -18,6 +18,8 @@
 		A03B42C52B6374C2002E14CF /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = A03B42C42B6374C2002E14CF /* SnapKit-Dynamic */; };
 		A0BD0C122B63797100262DFB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD0C112B63797100262DFB /* SearchViewController.swift */; };
 		A0BD0C142B63798600262DFB /* SavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD0C132B63798600262DFB /* SavingViewController.swift */; };
+		A0BD0C1A2B6380CD00262DFB /* ContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD0C192B6380CD00262DFB /* ContentsTableViewCell.swift */; };
+		A0BD0C1C2B63831B00262DFB /* ContentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD0C1B2B63831A00262DFB /* ContentsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		A03B42BF2B637288002E14CF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A0BD0C112B63797100262DFB /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A0BD0C132B63798600262DFB /* SavingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingViewController.swift; sourceTree = "<group>"; };
+		A0BD0C192B6380CD00262DFB /* ContentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsTableViewCell.swift; sourceTree = "<group>"; };
+		A0BD0C1B2B63831A00262DFB /* ContentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				A03B42BF2B637288002E14CF /* HomeViewController.swift */,
+				A0BD0C192B6380CD00262DFB /* ContentsTableViewCell.swift */,
+				A0BD0C1B2B63831A00262DFB /* ContentsCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -182,9 +188,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0BD0C1C2B63831B00262DFB /* ContentsCollectionViewCell.swift in Sources */,
 				A0BD0C122B63797100262DFB /* SearchViewController.swift in Sources */,
 				A03B42AF2B6370BD002E14CF /* ViewController.swift in Sources */,
 				A03B42AB2B6370BD002E14CF /* AppDelegate.swift in Sources */,
+				A0BD0C1A2B6380CD00262DFB /* ContentsTableViewCell.swift in Sources */,
 				A03B42AD2B6370BD002E14CF /* SceneDelegate.swift in Sources */,
 				A0BD0C142B63798600262DFB /* SavingViewController.swift in Sources */,
 				A03B42C02B637288002E14CF /* HomeViewController.swift in Sources */,
