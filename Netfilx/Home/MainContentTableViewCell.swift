@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainContentTableViewCell: UITableViewCell {
     
@@ -28,19 +29,17 @@ class MainContentTableViewCell: UITableViewCell {
     }
     
     func configureView() {
-        //posterImage.image = UIImage(named: poster.allCases.randomElement()!.rawValue)
+        posterImage.image = UIImage(named: poster.allCases.randomElement()!.rawValue)
         posterImage.contentMode = .scaleAspectFill
         posterImage.layer.cornerRadius = 15
     }
     
     func setupContsraints() {
-        contentView.snp.makeConstraints { make in
-            make.width.equalTo(UIScreen.main.bounds.width)
-        }
         
         posterImage.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.horizontalEdges.equalTo(50)
+            make.centerX.centerY.equalTo(contentView)
+            make.leading.trailing.equalTo(50)
+            make.top.bottom.equalTo(0)
         }
         
     }

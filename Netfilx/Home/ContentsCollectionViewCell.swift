@@ -31,7 +31,7 @@ class ContentsCollectionViewCell: UICollectionViewCell {
     
     func configureView() {
         posterImage.backgroundColor = .orange
-        //posterImage.image = UIImage(named: poster.allCases.randomElement()!.rawValue)
+        posterImage.image = UIImage(named: poster.allCases.randomElement()!.rawValue)
         posterImage.contentMode = .scaleAspectFill
         posterImage.layer.cornerRadius = 10
     }

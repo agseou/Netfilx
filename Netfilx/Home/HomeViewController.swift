@@ -10,7 +10,18 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
-    let homeTableView = UITableView()
+    let homeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    func layout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let width = 110
+        let height = 150
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        layout.scrollDirection = .horizontal
+        return layout
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,51 +33,53 @@ class HomeViewController: UIViewController {
     }
     
     func configureHierarchy() {
-        view.addSubview(homeTableView)
+        view.addSubview(homeCollectionView)
     }
     
     func configureView() {
-        homeTableView.delegate = self
-        homeTableView.dataSource = self
-        homeTableView.rowHeight = UIScreen.main.bounds.height / 3
-        homeTableView.register(ContentsTableViewCell.self, forCellReuseIdentifier: "ContentsTableViewCell")
-        homeTableView.register(MainContentTableViewCell.self, forCellReuseIdentifier: "MainContentTableViewCell")
+        homeCollectionView.delegate = self
+        homeCollectionView.dataSource = self
+        homeCollectionView.register(ContentsCollectionViewCell.self, forCellWithReuseIdentifier: "ContentsCollectionViewCell")
+        
     }
     
     func setupContsraints() {
-        homeTableView.snp.makeConstraints { make in
+        homeCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentsCollectionViewCell", for: indexPath) as! ContentsCollectionViewCell
+        
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.section == 0 {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "MainContentTableViewCell", for: indexPath) as! MainContentTableViewCell
-//            
-//            return cell
-//        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ContentsTableViewCell", for: indexPath) as! ContentsTableViewCell
-            
-            return cell
-//        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 150)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return nil
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        // 헤더나 푸터 뷰를 반환
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TitleCollectionReusableView", for: indexPath) as! TitleCollectionReusableView
+            // 헤더 구성
+            headerView.titleLabel.text = "Section" // 섹션 타이틀 설정
+            return headerView
         } else {
-            return "tableCell"
+            return UICollectionReusableView()
         }
     }
     

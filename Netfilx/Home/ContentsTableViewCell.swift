@@ -14,8 +14,8 @@ class ContentsTableViewCell: UITableViewCell {
     
     func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let width = UIScreen.main.bounds.width / 3.5
-        let height = contentView.bounds.height
+        let width = 110
+        let height = 150
         layout.itemSize = CGSize(width: width, height: height)
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
