@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            items[2].selectedImage = UIImage(systemName: "arrow.down.circle.fill")
 //        }
 //        
-        let vc = LoginViewController()
+        let vc = UINavigationController(rootViewController: LoginViewController())
         window = UIWindow(windowScene: scene)
         window?.rootViewController = vc
         window?.makeKeyAndVisible()

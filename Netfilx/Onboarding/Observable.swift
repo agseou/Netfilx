@@ -7,13 +7,14 @@
 
 import Foundation
 
+// 관찰 가능한 대상
 class Observable {
     
-    private var closure: (() -> Void)?
+    private var closure: ((String) -> Void)?
     
     var text: String {
         didSet {
-    
+            closure?(text)
         }
     }
     
@@ -21,8 +22,10 @@ class Observable {
         self.text = text
     }
     
-    func bind(_ clousure: @escaping (String) -> Void) {
+    func bind(_ closure: @escaping (String) -> Void) {
         print(#function)
+        closure(text)
+        self.closure = closure
     }
     
 }

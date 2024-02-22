@@ -10,6 +10,8 @@ import SnapKit
 
 class LoginViewController: BaseViewController {
     
+    let viewModel = LoginViewModel()
+    
     let stackView = UIStackView()
     let idTextField = UITextField()
     let idNoticeLabel = UILabel()
@@ -87,36 +89,18 @@ class LoginViewController: BaseViewController {
         }
     }
     
-    func validateID(_ text: String?) -> Bool {
-        // 1. 빈값
-        guard let text = text, !text.isEmpty else { return false }
-        
-        // 2. 이메일 주소가 맞는지
-        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        let isValid = emailPredicate.evaluate(with: text)
-        
-        return isValid
-    }
-    
-    func validatePW(_ text: String?) -> Bool {
-        // 1. 빈값
-        guard let text = text, !text.isEmpty else { return false }
-        
-        // 2. 패스워드가 유효한지
-        let regex = "^(?=.*\\d)(?=.*[A-Za-z])[A-Za-z\\d]{8,25}$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        let isValid = predicate.evaluate(with: text)
-        
-        return isValid
-    }
-    
+    // isActiveLoginButton (로그인 버튼을 활성화 할지 결정하는 함수)
     @objc func isActiveLoginButton() {
-        let isActive = validateID(idTextField.text) && validatePW(PWTextField.text)
-        if !validateID(idTextField.text) {
+        // isActive에 값을 받아서 결정함.
+        let isActive = viewModel.validateID(idTextField.text) && viewModel.validatePW(PWTextField.text)
+        
+        // 감지될때마다 유효성을 검사하므로
+        // 아이디와 비밀번호가 적절한지 알려주는 Label의 isHidden 상태도
+        // 이 함수 안에서 결정함
+        if !viewModel.validateID(idTextField.text) {
             idNoticeLabel.isHidden = false
             PWNoticeLabel.isHidden = true
-        } else if !validatePW(PWTextField.text) {
+        } else if !viewModel.validatePW(PWTextField.text) {
             idNoticeLabel.isHidden = true
             PWNoticeLabel.isHidden = false
         } else {
@@ -133,7 +117,10 @@ extension LoginViewController: UITextFieldDelegate {
         if textField == idTextField {
             PWTextField.becomeFirstResponder()
         } else if textField == PWTextField{
-            isActiveLoginButton()
+            if loginButton.isEnabled {
+                let vc = HomeViewController()
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
         return true
     }
