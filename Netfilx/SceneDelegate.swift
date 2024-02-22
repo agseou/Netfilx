@@ -15,29 +15,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        let tabBarController = UITabBarController()
-        let homeViewNavigationController = UINavigationController(rootViewController: HomeViewController())
-        let searchViewNavigationController  = UINavigationController(rootViewController: SearchViewController())
-        let savingViewNavigationController  = UINavigationController(rootViewController: SavingViewController())
-        
-        tabBarController.setViewControllers([homeViewNavigationController, searchViewNavigationController, savingViewNavigationController], animated: true)
-        
-        if let items = tabBarController.tabBar.items {
-            items[0].title = "홈"
-            items[0].image = UIImage(systemName: "house")
-            items[0].selectedImage = UIImage(systemName: "house.fill")
-            
-            items[1].title = "NEW & HOT"
-            items[1].image = UIImage(systemName: "star.square.on.square")
-            items[1].selectedImage = UIImage(systemName: "star.square.on.square.fill")
-            
-            items[2].title = "저장된 콘텐츠 목룍"
-            items[2].image = UIImage(systemName: "arrow.down.circle")
-            items[2].selectedImage = UIImage(systemName: "arrow.down.circle.fill")
-        }
-        
+//        let tabBarController = UITabBarController()
+//        let homeViewNavigationController = UINavigationController(rootViewController: HomeViewController())
+//        let searchViewNavigationController  = UINavigationController(rootViewController: SearchViewController())
+//        let savingViewNavigationController  = UINavigationController(rootViewController: SavingViewController())
+//        
+//        tabBarController.setViewControllers([homeViewNavigationController, searchViewNavigationController, savingViewNavigationController], animated: true)
+//        
+//        if let items = tabBarController.tabBar.items {
+//            items[0].title = "홈"
+//            items[0].image = UIImage(systemName: "house")
+//            items[0].selectedImage = UIImage(systemName: "house.fill")
+//            
+//            items[1].title = "NEW & HOT"
+//            items[1].image = UIImage(systemName: "star.square.on.square")
+//            items[1].selectedImage = UIImage(systemName: "star.square.on.square.fill")
+//            
+//            items[2].title = "저장된 콘텐츠 목룍"
+//            items[2].image = UIImage(systemName: "arrow.down.circle")
+//            items[2].selectedImage = UIImage(systemName: "arrow.down.circle.fill")
+//        }
+//        
+        let vc = LoginViewController()
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = tabBarController
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
 
