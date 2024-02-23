@@ -31,6 +31,7 @@ class LoginViewModel {
         PWText.bind { value in
             self.validatePW(value)
         }
+        
     }
     
     // ID 검사 function
@@ -58,6 +59,9 @@ class LoginViewModel {
         
         isValidatePW.value = isValid
     }
+    
+    
+    
    
 }
     
