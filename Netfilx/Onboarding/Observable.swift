@@ -8,21 +8,21 @@
 import Foundation
 
 // 관찰 가능한 대상
-class Observable {
+class Observable<T> {
     
-    private var closure: ((String) -> Void)?
+    private var closure: ((T) -> Void)?
     
-    var text: String {
+    var text: T {
         didSet {
             closure?(text)
         }
     }
     
-    init(_ text: String) {
+    init(_ text: T) {
         self.text = text
     }
     
-    func bind(_ closure: @escaping (String) -> Void) {
+    func bind(_ closure: @escaping (T) -> Void) {
         print(#function)
         closure(text)
         self.closure = closure

@@ -12,14 +12,15 @@ import Foundation
 // ViewModel <- observable  |   View <- ViewModel
 
 // 1. TextField에서는 값의 변화가 생길때, "로그인 버튼을 활성화할지 (-> func isActiveLoginButton)" 검사한다.
-// 2. 기능을 어떻게 분리해야할지???
+// 2. 기능을 어떻게 분리해야할지??? -> 클래스 자체를 제네릭화,
 class LoginViewModel {
     
     // 텍스트필드에서 "입력 값"을 받는 프로퍼티
-    var inputText = Observable("")
+    var IDText = Observable("")
+    var PWText = Observable("")
     
-    // 검사 유효성을 반환해주면 좋겠음 -> Bool 값?
-    //var outputResult = Observable("")
+    // 검사 유효성을 반환해주면 좋겠음 -> Bool 값 : 기본 false
+    var isActiveLogin = Observable(false)
     
     // ID 검사 function
     func validateID(_ text: String?) -> Bool {
