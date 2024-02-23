@@ -22,6 +22,9 @@ class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.isValidateLogin.bind { value in
+            self.loginButton.isEnabled = value
+        }
         
     }
     
@@ -92,15 +95,27 @@ class LoginViewController: BaseViewController {
     // isActiveLoginButton (로그인 버튼을 활성화 할지 결정하는 함수)
     @objc func isActiveLoginButton() {
         // isActive에 값을 받아서 결정함.
-        let isActive = viewModel.validateID(idTextField.text) && viewModel.validatePW(PWTextField.text)
+        viewModel.IDText.value = idTextField.text!
+        viewModel.PWText.value = PWTextField.text!
+        let isActive = viewModel.isValidateID.value && viewModel.isValidatePW.value
         
         // 감지될때마다 유효성을 검사하므로
         // 아이디와 비밀번호가 적절한지 알려주는 Label의 isHidden 상태도
         // 이 함수 안에서 결정함
-        if !viewModel.validateID(idTextField.text) {
+//        if !viewModel.validateID(idTextField.text) {
+//            idNoticeLabel.isHidden = false
+//            PWNoticeLabel.isHidden = true
+//        } else if !viewModel.validatePW(PWTextField.text) {
+//            idNoticeLabel.isHidden = true
+//            PWNoticeLabel.isHidden = false
+//        } else {
+//            idNoticeLabel.isHidden = true
+//            PWNoticeLabel.isHidden = true
+//        }
+        if !viewModel.isValidateID.value {
             idNoticeLabel.isHidden = false
             PWNoticeLabel.isHidden = true
-        } else if !viewModel.validatePW(PWTextField.text) {
+        } else if !viewModel.isValidatePW.value {
             idNoticeLabel.isHidden = true
             PWNoticeLabel.isHidden = false
         } else {

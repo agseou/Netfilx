@@ -20,32 +20,43 @@ class LoginViewModel {
     var PWText = Observable("")
     
     // 검사 유효성을 반환해주면 좋겠음 -> Bool 값 : 기본 false
-    var isActiveLogin = Observable(false)
+    var isValidateID = Observable(false)
+    var isValidatePW = Observable(false)
+    var isValidateLogin = Observable(false)
+    
+    init() {
+        IDText.bind { value in
+            self.validateID(value)
+        }
+        PWText.bind { value in
+            self.validatePW(value)
+        }
+    }
     
     // ID 검사 function
-    func validateID(_ text: String?) -> Bool {
+    func validateID(_ text: String?) {
         // 1. 빈값
-        guard let text = text, !text.isEmpty else { return false }
+        guard let text = text, !text.isEmpty else { return }
         
         // 2. 이메일 주소가 맞는지
         let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isValid = emailPredicate.evaluate(with: text)
         
-        return isValid
+        isValidateID.value = isValid
     }
     
     // PW 검사 function
-    func validatePW(_ text: String?) -> Bool {
+    func validatePW(_ text: String?) {
         // 1. 빈값
-        guard let text = text, !text.isEmpty else { return false }
+        guard let text = text, !text.isEmpty else { return }
         
         // 2. 패스워드가 유효한지
         let regex = "^(?=.*\\d)(?=.*[A-Za-z])[A-Za-z\\d]{8,25}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isValid = predicate.evaluate(with: text)
         
-        return isValid
+        isValidatePW.value = isValid
     }
    
 }

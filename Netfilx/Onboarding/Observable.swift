@@ -12,19 +12,19 @@ class Observable<T> {
     
     private var closure: ((T) -> Void)?
     
-    var text: T {
+    var value: T {
         didSet {
-            closure?(text)
+            closure?(value)
         }
     }
     
-    init(_ text: T) {
-        self.text = text
+    init(_ value: T) {
+        self.value = value
     }
     
     func bind(_ closure: @escaping (T) -> Void) {
         print(#function)
-        closure(text)
+        closure(value)
         self.closure = closure
     }
     
