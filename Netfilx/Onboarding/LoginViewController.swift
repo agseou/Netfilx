@@ -24,9 +24,22 @@ class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.isValidateLogin.bind { value in
+        viewModel.isValidatePW.bind { value in
+            self.idNoticeLabel.isHidden = value ? false : true
+            self.PWNoticeLabel.isHidden = value ? true : false
+        }
+        viewModel.isValidateID.bind { value in
+            self.idNoticeLabel.isHidden = value ? true : false
+            self.PWNoticeLabel.isHidden = value ? false : true
+        }
+        viewModel.isAccessLogin.bind { value in
+            if value {
+                self.idNoticeLabel.isHidden = true
+                self.PWNoticeLabel.isHidden = true
+            }
             self.loginButton.isEnabled = value
         }
+        
         
         // 키보드 올라감에 따른 화면 올리기
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -120,10 +133,12 @@ class LoginViewController: BaseViewController {
         self.view.frame.origin.y = 0
     }
     
+    // 키보드 내리기
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
+    // 로그인 버튼 클릭
     @objc func tapLoginButton() {
         let vc = HomeViewController()
         navigationController?.pushViewController(vc, animated: true)
@@ -131,24 +146,12 @@ class LoginViewController: BaseViewController {
     
     
     @objc func editingTextField() {
-        viewModel.IDText.value = idTextField.text!
-        viewModel.PWText.value = PWTextField.text!
-        
-        // 감지될때마다 유효성을 검사하므로
-        // 아이디와 비밀번호가 적절한지 알려주는 Label의 isHidden 상태도
-        // 이 함수 안에서 결정함
-        if !viewModel.isValidateID.value {
-            idNoticeLabel.isHidden = false
-            PWNoticeLabel.isHidden = true
-        } else if !viewModel.isValidatePW.value {
-            idNoticeLabel.isHidden = true
-            PWNoticeLabel.isHidden = false
-        } else {
-            idNoticeLabel.isHidden = true
-            PWNoticeLabel.isHidden = true
+        if let idtext = idTextField.text {
+            viewModel.IDText.value = idtext
         }
-        
-        loginButton.isEnabled = viewModel.isValidateID.value && viewModel.isValidatePW.value
+        if let pwtext = PWTextField.text {
+            viewModel.PWText.value = pwtext
+        }
     }
 }
 

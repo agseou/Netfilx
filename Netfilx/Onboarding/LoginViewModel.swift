@@ -22,7 +22,7 @@ class LoginViewModel {
     // 검사 유효성을 반환해주면 좋겠음 -> Bool 값 : 기본 false
     var isValidateID = Observable(false)
     var isValidatePW = Observable(false)
-    var isValidateLogin = Observable(false)
+    var isAccessLogin = Observable(false)
     
     init() {
         IDText.bind { value in
@@ -31,11 +31,10 @@ class LoginViewModel {
         PWText.bind { value in
             self.validatePW(value)
         }
-        
     }
     
     // ID 검사 function
-    func validateID(_ text: String?) {
+    private func validateID(_ text: String?) {
         // 1. 빈값
         guard let text = text, !text.isEmpty else { return }
         
@@ -45,10 +44,11 @@ class LoginViewModel {
         let isValid = emailPredicate.evaluate(with: text)
         
         isValidateID.value = isValid
+        validateLogin()
     }
     
     // PW 검사 function
-    func validatePW(_ text: String?) {
+    private func validatePW(_ text: String?) {
         // 1. 빈값
         guard let text = text, !text.isEmpty else { return }
         
@@ -58,10 +58,13 @@ class LoginViewModel {
         let isValid = predicate.evaluate(with: text)
         
         isValidatePW.value = isValid
+        validateLogin()
     }
     
-    
-    
+    private func validateLogin(){
+        let isAccess = isValidateID.value && isValidatePW.value
+        isAccessLogin.value = isAccess
+    }
    
 }
     
